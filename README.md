@@ -1,93 +1,149 @@
-# SS24_SE_Fr1_Grp02
+Aufbau eFußgängerzone
+============================
 
+*Hinweis für Studenten:* Teile dieser Dokumentation ergeben sich erst durch Wissen der späteren
+Vorlesungsveranstaltungen. Fortgeschrittene Themen aus dem Teil Software Architektur werden in der Vorlesung nur am
+Rande behandelt. Lassen Sie sich nicht entmutigen, wenn Sie dieser Dokumentation nicht beim ersten Lesen folgen können.
 
+Dieses Dokument beschreibt den Aufbau des Software Projekts _eFusgängerzone_.
+Es dient dem Zweck eines tieferen Verständnisses des Aufbaus des Projekts und ist gleichzeitig eine Richtschnur für die
+Erweiterung des Projekts.
 
-## Getting started
+## Überblick über die Dateien und Ordner
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Das Projekt hat grob skizziert folgenden Datei Aufbau:
 
 ```
-cd existing_repo
-git remote add origin https://code.fbi.h-da.de/f.buehler/ss24_se_fr1_grp02.git
-git branch -M main
-git push -uf origin main
+.
+├── .idea
+├── mvnw / mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── de
+│   │   │       └── hda
+│   │   │           └── fbi
+│   │   │               └── efussgaengerzone
+│   │   │                   ├── EfussgaengerzoneApplication.java
+│   │   │                   ├── adapter
+│   │   │                   ├── domain
+│   │   │                   │   ├── model
+│   │   │                   │   └── usecase
+│   │   │                   └── views
+│   │   │                       └── dto
+│   │   └── resources
+│   │       ├── static
+│   │       │   ├── css
+│   │       │   └── images 
+│   │       ├── templates
+│   │       └── application.yml
+│   └── test
+│       └── java
+│           └── de
+│               └── hda
+│                   └── fbi
+│                       └── efussgaengerzone
+└── target
 ```
 
-## Integrate with your tools
+Die einzelnen Dateien und Ordner haben hierbei folgende Aufgaben:
 
-- [ ] [Set up project integrations](https://code.fbi.h-da.de/f.buehler/ss24_se_fr1_grp02/-/settings/integrations)
+1. `.idea`: Hier speichert vornehmlich IntelliJ seine Projektdateien. Eine Anpassung dieses Ordners ist nicht notwendig.
+   Das Ausgangsprojekt liefert
+   drei [runConfigurations](https://www.jetbrains.com/help/idea/run-debug-configuration.html) zur sofortigen Benutzung,
+   um den Einstieg zu erleichtern.
+1. `mvnw / mvnw.cmd`: Sind jeweils Wrapper für Skripte für Unixoide Betriebssysteme (`mvnw:` MacOs, Linux) und
+   Windows (`mvnw.cmd`) um Maven ohne Installation auf der Konsole ausführen zu können. Ein weiterer Vorteil ist, dass
+   das Projekt hiermit seine genaue Maven Version mitliefert.
+1. `pom.xml`: Dies ist die Konfiguration für das Build Tool Apache Maven. Es enthält Informationen über die verwendeten
+   Libraries und gibt an wie das Projekt kompiliert und paketiert werden soll. Zusätzliche Libraries sind hier
+   einzutragen.
+1. `src`: Bei Maven ist aller Quellcode per Konvention immer unter diesem Ordner zu finden.
+1. `main`: Hier wird Programmcode, genauer Java Dateien, abgelegt.
+1. `java/de/hda/fbi/efussgaengerzone`: Dies ist der Paketpräfix des Projekts. Er wird in Java Programmen mit der selben
+   Ordnerstruktur auf dem Dateisystem abgebildet.
+1. `EfussgaengerzoneApplication.java`: Diese Datei enthält den Einstiegspunkt in das Java Programm.
+1. `adapter/domain/views`: Dies sind weitere Unterpakete die im zweiten Teil dieser Dokumentation erklärt werden.
+1. `resources`: Hier werden zusätzliche Dateien abgelegt die im Code verwendet werden sollen abgelegt. Sie werden beim
+   Paketieren in die resultierende Programmdatei eingebettet. Hinweis: Java Programme werden meist als `.jar`-Datei
+   ausgeliefert. `.jar`-Dateien sind ZIP-Dateien aus Kompiliertem Java (`.class`) und anderen Dateien.
+1. `static`: Hier werden CSS und Bilddateien für die Verwendung im HTML-Frontend abgelegt.
+1. `templates`: Hier werden die HTML Templates abgelegt, welche das Frontend der Applikation bilden. Die Templates
+   werden dynamisch von der Applikation gerendert, wenn ein Nutzer das Frontend aufruft.
+1. `application.yaml`: Diese Datei dient der Konfiguration der Applikation und
+1. `test`: In diesem Teil wird Testcode abgelegt. Bei korrekter Konfiguration werden diese Testfälle automatisch durch
+   Maven in der Test-Phase ausgeführt. Die Dateistruktur folgt hier den Paketen des Quellcodes.
+1. `target`: Enthält den kompilierten Programmcode und nach der Ausführung der _Package_ Phase von Maven auch das
+   Paketierte Programm als `.jar`.
 
-## Collaborate with your team
+## Paketstruktur und Software Architektur
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Das Projekt folgt im Kern
+einer [Hexagonalen Architektur](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)).
+Die Pakete sind folgendermaßen geschnitten:
 
-## Test and Deploy
+1. `domain`: Dieses Paket enthält nur Fachliche Komponenten und Code. Sämtliche technischen Aspekte sind hier über
+   Interfaces abstrahiert. Abhängigkeiten zu technischen Frameworks und Libraries sollten hier vermieden werden.
+   1. `model`: Enthält nur Entitäten und Wertobjekte der Problemdomäne, wieder ohne technische Details. Klassen in
+      diesem Paket sollten von keinem anderen Paket abhängig sein.
+   1. `usecase`: Enthält die fachlichen Anwendungsfälle. Dies ist die Kerngeschäftslogik, die benötigt wird um die
+      Interaktionen des Nutzers abzubilden. Klassen aus diesem Paket sollten nur Klassen aus dem eigenen und dem
+      Paket `model` verwenden.
+1. `adapter`: Enthält allgemeine Implementierungen zu den Abstraktionen (Interfaces oder abstrakte Klassen) aus
+   dem `domain` Paket. Mehrere Implementierungen für die gleichen Abstraktionen sind denkbar um verschiedene technische
+   Umgebungen oder Konfigurationen abzubilden. Abhängigkeiten zu Frameworks und Library's gehören hier hinenin.
+1. `views`: Enthält gesammelt Implementierungen rund um UI (Modelle, Logik und Markup), siehe
+   auch [MVC](https://de.wikipedia.org/wiki/Model_View_Controller). Das Frontend ist eine statische Web-Applikation, die
+   beim Aufruf der `*Controller.java`-Klassen serverseitig mit Daten befüllt wird. Dazu werden die
+   HTML [Mustache Templates](https://mustache.github.io/) aus dem `/src/resources/templates`-Ordner mit Daten aus dem
+   Modell (`views/dto`) gerendert und an den Client ausgeliefert.
 
-Use the built-in continuous integration in GitLab.
+Im Kontext von einer Hexagonalen Architektur entspricht das Paket `domain` dem _Application Core_, die Pakete `adapter`
+und `view` sind beide _Adapter_ Pakete. Diese Trennung ermöglicht beispielsweise den Austausch der Persistenzschicht
+durch eine vollwertige Datenbank oder den Austausch des UI Frameworks ohne die fachliche Logik oder Datenmodelle ändern
+zu müssen.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+*Hinweis für Studenten:* Eine kurze und daher _sehr_ fortgeschrittene Einführung in das Thema Hexagonale Architekturen
+mit Vorteilen und Parallelen zu anderen Modellen finden
+Sie [hier](https://www.maibornwolff.de/blog/von-schichten-zu-ringen-hexagonale-architekturen-erklaert). Eine etwas
+ausführlicher Erklärung finden Sie als Video [hier](https://www.jug-da.de/2020/06/Hexagonale-Architektur/).
 
-***
+## Ausführung
 
-# Editing this README
+Zuerst müssen Sie ein JDK 21 installieren. Öffnen Sie im Browser "https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html"
+und laden Sie sich die passende JDK-Version herunter (z. B. für MS Windows x64 https://corretto.aws/downloads/latest/amazon-corretto-21-x64-windows-jdk.msi).
+Anschließend installieren Sie das JDK.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+![Installation von JDK 21](img/install_jdk21.png){width=40}
+![Check Installation von JDK 21](img/install_jdk21_check.png){width=20}
 
-## Suggestions for a good README
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Bevor die Anwendung gestartet werden kann, sollte das Terminal geöffnet und einmal der Befehl `./mvnw.cmd clean install`
+(bzw. `./mvnw clean install` auf UNIX-Systemen) ausgeführt werden.
 
-## Name
-Choose a self-explaining name for your project.
+![Maven-Aufruf](img/mvn_clean_install.png)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Die Anwendung kann durch die mitgelieferte run-debug-Config direkt über die `Run`-Schaltfläche ("grüner Pfeil") in der IDE gestartet werden.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+![Maven-Aufruf](img/run_debug_config.png)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Falls die Run-Config nicht standardmäßig geladen sein sollte, kann eine neue Run-Config erstellt werden.
+Hierzu sind die folgenden Schritte in IntelliJ auszuführen:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+1. Run/Debug Configurations -> `Edit Configurations...` auswählen
+2. Unter `Spring Boot` eine neue Run-Config anlegen -> `Add new run configuration...`
+3. Als SDK wird `java 21` ausgewählt und als `Main Class` wird `de.hda.fbi.efussgaengerzone.EfussgaengerzoneApplication` festgelegt.
+4. Bei `Active Profiles` wird `debug` angegeben. Dies sorgt dafür, dass die Applikation mit Beispieldaten befüllt wird.
+5. Anschließend wird das Fenster mit `OK` geschlossen. 
+6. Die run-config auswählen und über die `Run`-Schaltfläche ("grüner Pfeil") die Sprint-Anwendung starten.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Nach dem Start der Applikation ist das Frontend unter `http://localhost:8080` erreichbar. Wird die Applikation wie oben
+beschrieben im `debug` Profil gestartet, ist anschließend ein Login im Shop mit folgenden Zugangsdaten möglich:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Alternative 1 (Shop mit Termindaten):
+Username: `owner@cofee.shop`, Password: `123`
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Alternative 2 (Shop ohne Termindaten):
+Username: `owner@cigar.shop`, Password: `123`
