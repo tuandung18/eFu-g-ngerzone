@@ -17,6 +17,7 @@ public class ShopOrganization {
     }
 
     public void createShop(Shop shop) {
+        shopRepository.save(shop);
     }
 
     public void updateShopEmail(UUID shopId, String newMail) {

@@ -31,7 +31,16 @@ public class OwnerRegistration {
     }
 
     public Owner register(Owner owner) throws InsecurePasswordException {
-        return null;
+        if(!passwordValidator.isPasswordSecure(owner.password())) {
+            throw new InsecurePasswordException();
+        }
+
+        if(ownerRepository.find(owner.email()) != null) {
+            throw new OwnerAlreadyExistsException(owner.email());
+        }
+
+        ownerRepository.save(owner);
+        return owner;
     }
 
     public boolean login(String username, String password) {
