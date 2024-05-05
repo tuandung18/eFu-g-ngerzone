@@ -10,6 +10,9 @@ public interface ShopRepository {
 
     Set<Shop> findAll();
 
+    Set<Shop> findShopsByNames(Set<String> names);
+
+
     Set<Shop> findPredicate(Predicate<Shop> predicate);
 
     Shop save(Shop toSave);

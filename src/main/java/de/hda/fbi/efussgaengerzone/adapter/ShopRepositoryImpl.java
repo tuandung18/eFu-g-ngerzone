@@ -28,6 +28,13 @@ public class ShopRepositoryImpl implements ShopRepository {
     }
 
     @Override
+    public Set<Shop> findShopsByNames(Set<String> names) {
+        return shopsById.values().stream()
+                .filter(shop -> shop.name() != null && names.stream().anyMatch(name -> shop.name().toLowerCase().contains(name.toLowerCase())) )
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Set<Shop> findPredicate(Predicate<Shop> predicate) {
         return shopsById.values().stream()
                 .filter(predicate)
