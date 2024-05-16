@@ -26,9 +26,11 @@ public class AppointmentScheduling {
     }
 
     public void makeAppointment(UUID shopid, Appointment appointment) {
+        appointmentRepository.save(shopid, appointment);
     }
 
     public void deleteAppointment(UUID shopId, UUID appointmentId) {
+        appointmentRepository.delete(shopId, appointmentId);
     }
 
     public Optional<Appointment> findNextAppointment(UUID shopId) {
@@ -40,6 +42,9 @@ public class AppointmentScheduling {
     }
 
     public List<LocalTime> availableDatesOnDay(UUID shopid, DayOfWeek dayOfWeek) throws ShopNotFoundException {
+        if (shopRepository.findById(shopid).isEmpty()) {
+            throw new ShopNotFoundException(shopid);
+        }
         return List.of();
     }
 
