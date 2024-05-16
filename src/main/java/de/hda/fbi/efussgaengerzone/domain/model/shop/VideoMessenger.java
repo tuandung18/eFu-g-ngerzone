@@ -7,7 +7,8 @@ public enum VideoMessenger {
     FACETIME("Facetime"),
     GOOGLEDUO("Google Duo"),
     TELEGRAM("Telegram"),
-    SKYPE("Skype");
+    SKYPE("Skype"),
+    INSTAGRAM("Instagram");
 
     public final String label;
 
