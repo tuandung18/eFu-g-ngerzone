@@ -210,14 +210,14 @@ public class Startup {
 
         final Collection<Appointment> bubbleTeaShopAppointments = List.of(
                 new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(7), Duration.ofMinutes(8)),
-                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(2), Duration.ofMinutes(8))
+                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.FACETIME, "tdl", LocalDateTime.now().minusDays(7), Duration.ofMinutes(8))
         );
         bubbleTeaShopAppointments.forEach(a -> appointmentRepository.save(bubbleTeaShop.id(), a));
 
 
         final Collection<Appointment> iceCreamShopAppointments = List.of(
-                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(7), Duration.ofMinutes(12)),
-                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(2), Duration.ofMinutes(12))
+                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(10), Duration.ofMinutes(12)),
+                new Appointment(UUID.randomUUID(), CUSTOMER_6, VideoMessenger.INSTAGRAM, "tdl", LocalDateTime.now().minusDays(10), Duration.ofMinutes(12))
         );
         iceCreamShopAppointments.forEach(a -> appointmentRepository.save(iceCreamShop.id(), a));
     }
