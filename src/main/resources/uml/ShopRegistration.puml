@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+Actor User
+
+activate User
+User -> RegisterShopController: register
+activate RegisterShopController
+RegisterShopController -> OwnerRegistration: register(new Owner(accountName, accountEmail, accountPassword))
+activate OwnerRegistration
+OwnerRegistration -> SecurePasswordValidator: isPasswordSecure(owner.password())
+activate SecurePasswordValidator
+alt successful case
+    OwnerRegistration <-- SecurePasswordValidator: isPasswordSecure: true
+else failure case
+    OwnerRegistration <-- SecurePasswordValidator: isPasswordSecure: false
+    User <-- OwnerRegistration: throw: ownerAlreadyExists.html
+end
+deactivate SecurePasswordValidator
+OwnerRegistration -> OwnerRepository: find(owner.email())
+activate OwnerRepository
+alt successful case
+    OwnerRegistration <-- OwnerRepository: find: null
+    OwnerRegistration -> OwnerRepository: save(owner)
+    OwnerRegistration <-- OwnerRepository
+else failure case
+    OwnerRegistration <-- OwnerRepository: find: not null
+    User <-- OwnerRegistration: throw: passwordError.html
+end
+deactivate OwnerRepository
+RegisterShopController <-- OwnerRegistration: register: owner
+deactivate OwnerRegistration
+RegisterShopController -> ShopOrganization: createShop(shop)
+activate ShopOrganization
+ShopOrganization -> ShopRepository: save(shop)
+activate ShopRepository
+ShopOrganization <-- ShopRepository
+deactivate ShopRepository
+RegisterShopController <-- ShopOrganization
+deactivate ShopOrganization
+User <-- RegisterShopController: registerShopSuccess.html
+deactivate RegisterShopController
+deactivate User
+
+
+'Alice -> Bob: Authentication Request
+'Bob --> Alice: Authentication Response
+
+'Alice -> Bob: Another authentication Request
+'Alice <-- Bob: another authentication Response
+@enduml

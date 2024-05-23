@@ -1,0 +1,12 @@
+@startuml
+title Shop Browsing (All)
+actor User
+User -> ShopListController: Request Shops List View
+ShopListController -> ShopBrowsing: listview(query)
+ShopBrowsing -> ShopRepository: findAll()
+ShopRepository --> ShopBrowsing: Shops
+ShopBrowsing --> ShopListController: Shops
+ShopListController --> ViewModel: ListViewModel
+ViewModel --> User: Responses Shops List View
+
+@enduml

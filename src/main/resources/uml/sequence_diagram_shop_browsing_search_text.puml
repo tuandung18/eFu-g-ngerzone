@@ -1,0 +1,11 @@
+@startuml
+title Shop Browsing (Search_Text)
+actor User
+User -> ShopListController: Request Shops List View
+ShopListController -> ShopBrowsing: listview(query)
+ShopBrowsing -> ShopRepository: findShopsByQuery(words)
+ShopRepository --> ShopBrowsing: Set<Shop>
+ShopBrowsing --> ShopListController: Set<Shop>
+ShopListController --> User: Responses Shops List View
+
+@enduml
