@@ -2,14 +2,10 @@ package de.hda.fbi.efussgaengerzone.adapter;
 
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
+import de.hda.fbi.efussgaengerzone.domain.usecase.AppointmentNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class AppointmentRepositoryImpl implements AppointmentRepository {
@@ -28,6 +24,25 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Override
     public Appointment delete(UUID shopId, UUID appointmentId) {
-        return null;
+        List<Appointment> shopAppointments = appointmentsByShop.getOrDefault(shopId, new ArrayList<>());
+
+        Appointment deletedAppointment = null;
+        Iterator<Appointment> it = shopAppointments.iterator();
+        while (it.hasNext()) {
+            Appointment appointment = it.next();
+            if (appointmentId.equals(appointment.id())) {
+                it.remove();
+                deletedAppointment = appointment;
+            }
+        }
+
+        if (deletedAppointment != null) {
+            if (shopAppointments.isEmpty()) {
+                appointmentsByShop.remove(shopId);
+            }
+            return deletedAppointment;
+        } else {
+            throw new AppointmentNotFoundException(String.format("Appointment %s not found for shop %s", appointmentId, shopId));
+        }
     }
 }
