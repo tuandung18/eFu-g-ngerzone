@@ -4,12 +4,7 @@ import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class AppointmentRepositoryImpl implements AppointmentRepository {
@@ -23,7 +18,8 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Override
     public Appointment save(UUID shopId, Appointment newAppointment) {
-        return null;
+        appointmentsByShop.computeIfAbsent(shopId, k -> new ArrayList<>()).add(newAppointment);
+        return newAppointment;
     }
 
     @Override
