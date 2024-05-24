@@ -19,7 +19,7 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Override
     public Collection<Appointment> findForShopId(UUID shopId) {
-        return appointmentsByShop.getOrDefault(shopId, new ArrayList<>())
+        return appointmentsByShop.getOrDefault(shopId, new ArrayList<>());
     }
 
     @Override
