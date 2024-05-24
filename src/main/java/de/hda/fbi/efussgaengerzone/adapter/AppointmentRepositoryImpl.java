@@ -19,12 +19,13 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
 
     @Override
     public Collection<Appointment> findForShopId(UUID shopId) {
-        return Set.of();
+        return appointmentsByShop.getOrDefault(shopId, new ArrayList<>())
     }
 
     @Override
     public Appointment save(UUID shopId, Appointment newAppointment) {
-        return null;
+        appointmentsByShop.computeIfAbsent(shopId, k -> new ArrayList<>()).add(newAppointment);
+        return newAppointment;
     }
 
     @Override
