@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -49,6 +51,55 @@ class ShopBrowsingTest {
             "test@owner.de"
     );
 
+    @Test
+    void whenShopNotFoundThenReturnEmptyList() {
+        // given
+        given(repository.findAll()).willReturn(emptySet());
+
+        // when
+        var shops = shopBrowsing.findAll();
+
+        // then
+        assertThat(shops).isEmpty();
+    }
+
+    @Test
+    void returnAllShops() {
+        // given
+        given(repository.findAll()).willReturn(Set.of(wineAndCoffee));
+
+        // when
+        var shops = shopBrowsing.findAll();
+
+        // then
+        assertThat(shops).containsExactly(wineAndCoffee);
+    }
+
+
+
+    @Test
+    void findShopsByQuery() {
+    }
+
+    @Test
+    void whenShopWithThisIDExistsThenReturnIt() {
+
+        given(repository.findById(wineAndCoffee.id())).willReturn(Optional.of(wineAndCoffee));
+
+        var shop = shopBrowsing.findShopById(wineAndCoffee.id());
+
+        assertThat(shop).contains(wineAndCoffee);
+    }
+
+    @Test
+    void whenShopWithThisIdNotExistThenReturnNull() {
+
+        given(repository.findById(wineAndCoffee.id())).willReturn(Optional.empty());
+
+        var shop = shopBrowsing.findShopById(wineAndCoffee.id());
+
+        assertThat(shop).isEmpty();
+    }
 
     // im Ausgangsprojekt belassen
     @Nested

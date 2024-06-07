@@ -21,6 +21,13 @@ class ShopOrganizationTest {
     private final ShopRepository shopRepository = mock(ShopRepository.class);
     private final ShopOrganization sut = new ShopOrganization(shopRepository);
 
+    @Test
+    void whenShopCreatedItIsSavedInMock() {
+            sut.createShop(SAMPLE_SHOP);
+            verify(shopRepository).save(SAMPLE_SHOP);
+        }
+
+
     @Nested
     class changeShop {
 
