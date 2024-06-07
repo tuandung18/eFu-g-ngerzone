@@ -2,7 +2,8 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-Actor User
+title Shop Registration
+actor User
 
 activate User
 User -> RegisterShopController: register

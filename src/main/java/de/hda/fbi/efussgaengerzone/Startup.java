@@ -21,7 +21,7 @@ import java.util.UUID;
 @Component
 @Profile("debug")
 public class Startup {
-
+    // Klasse zum Erzeugen von Testdaten
     private static final String CUSTOMER_1 = "Wiebke Wodka";
     private static final String CUSTOMER_2 = "Wilhelm Whiskey";
     private static final String CUSTOMER_3 = "Werner Wein";
