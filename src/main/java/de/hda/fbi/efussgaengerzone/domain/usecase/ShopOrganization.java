@@ -2,6 +2,7 @@ package de.hda.fbi.efussgaengerzone.domain.usecase;
 
 import de.hda.fbi.efussgaengerzone.domain.model.shop.Shop;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.ShopRepository;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,6 +11,8 @@ import java.util.UUID;
 @Service
 public class ShopOrganization {
 
+    private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(ShopOrganization.class);
+
     final ShopRepository shopRepository;
 
     public ShopOrganization(ShopRepository shopRepository) {
@@ -17,6 +20,7 @@ public class ShopOrganization {
     }
 
     public void createShop(Shop shop) {
+        LOG.debug("Create shop {}", shop);
         shopRepository.save(shop);
     }
 
@@ -35,3 +39,4 @@ public class ShopOrganization {
     }
 
 }
+
