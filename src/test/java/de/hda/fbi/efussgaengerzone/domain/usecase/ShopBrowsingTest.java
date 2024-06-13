@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,7 +50,65 @@ class ShopBrowsingTest {
             10,
             "test@owner.de"
     );
+    final private Shop coffeeAndGuns = new Shop(
+            UUID.randomUUID(),
+            "Coffee and Guns Shop",
+            "Unser Name ist Programm. Wir bieten Ihnen Kaffee von kleinen, aber ausgezeichneten Kaffee" +
+                    "bauern, von welchen wir unsere Ware direkt beziehen. Der Umweg über den Zwischenhandel " +
+                    "entfällt, so dass Spitzenweine zu einem günstigen Preis angeboten werden können. Außerdem " +
+                    "verkaufen wir waffen.",
+            Set.of(VideoMessenger.ZOOM),
+            usualWeeklyOpeningHours,
+            Set.of(Tag.of("guns"), Tag.of("yolo")),
+            true,
+            10,
+            "test@owner.de"
+    );
 
+    @Test
+    void whenShopNotFoundThenReturnEmptyList() {
+        // given
+        given(repository.findAll()).willReturn(emptySet());
+
+        // when
+        var shops = shopBrowsing.findAll();
+
+        // then
+        assertThat(shops).isEmpty();
+    }
+
+    @Test
+    void returnAllShops() {
+        // given
+        given(repository.findAll()).willReturn(Set.of(wineAndCoffee));
+
+        // when
+        var shops = shopBrowsing.findAll();
+
+        // then
+        assertThat(shops).containsExactly(wineAndCoffee);
+    }
+
+
+    @Test
+    void whenShopWithThisIDExistsThenReturnIt() {
+
+        given(repository.findById(wineAndCoffee.id())).willReturn(Optional.of(wineAndCoffee));
+
+        var shop = shopBrowsing.findShopById(wineAndCoffee.id());
+
+        assertThat(shop).contains(wineAndCoffee);
+    }
+
+    @Test
+    void whenShopWithThisIdNotExistThenReturnNull() {
+
+        given(repository.findById(wineAndCoffee.id())).willReturn(Optional.empty());
+
+        var shop = shopBrowsing.findShopById(wineAndCoffee.id());
+
+        assertThat(shop).isEmpty();
+    }
 
     // im Ausgangsprojekt belassen
     @Nested
@@ -73,6 +133,36 @@ class ShopBrowsingTest {
             // when
             assertThatThrownBy(() -> shopBrowsing.getShopByOwner("unknown-email"))
                     .isInstanceOf(ShopNotFoundException.class);
+        }
+    }
+
+    @Nested
+    class findShopsByQuery {
+        @Test
+        void whenNoShopMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(emptySet());
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("unknown-name"), Set.of(Tag.of("unknown-tag")));
+
+            assertThat(shops).isEmpty();
+        }
+
+        @Test
+        void whenOneShopMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(Set.of(wineAndCoffee));
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("Wine and Coffee"), Set.of());
+
+            assertThat(shops).containsOnly(wineAndCoffee);
+        }
+
+        @Test
+        void whenMultipleShopsMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(Set.of(wineAndCoffee, coffeeAndGuns));
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("coffee"), Set.of(Tag.of("yolo")));
+
+            assertThat(shops).containsOnly(wineAndCoffee, coffeeAndGuns);
         }
     }
 

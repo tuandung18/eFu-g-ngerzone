@@ -11,6 +11,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import static java.util.stream.Collectors.toSet;
+
+
 @Service
 public class ShopBrowsing {
 
@@ -45,6 +48,7 @@ public class ShopBrowsing {
         return shops.stream().findFirst().orElseThrow();
     }
 
+
     /**
      * Diese Methode ruft die findAll Methode beim shopRepository, die alle verfügbaren Shops zurückgibt.
      * Sie ruft alle Shops aus dem Repository ab und gibt sie als Set zurück.
@@ -63,16 +67,41 @@ public class ShopBrowsing {
      * @return Ein Set von Shops, die den Suchwörtern entsprechen.
      */
     public Set<Shop> findShopsByQuery(Set<String> words, Set<Tag> tags) {
-        return shopRepository.findShopsByNames(words);
+        LOG.info("finding all shops with words {} and tags {}", words, tags);
+
+        if (words.isEmpty() && tags.isEmpty()) {
+            LOG.error("no words or tags provided for shop search");
+            throw new IllegalArgumentException("no words or tags provided for shop search");
+        }
+
+        var wordsLower = words.stream()
+                .map(String::toLowerCase)
+                .collect(toSet());
+
+        return shopRepository.findPredicate(shop -> shopNameContainsWord(shop, wordsLower) || shopHasTags(shop, tags));
+
     }
+
+    private boolean shopNameContainsWord(Shop shop, Set<String> words) {
+        return words.stream()
+                .anyMatch(word -> shop.name().toLowerCase().contains(word));
+    }
+
+    private boolean shopHasTags(Shop shop, Set<Tag> tags) {
+        return tags.stream()
+                .anyMatch(tag -> shop.tags().contains(tag));
+    }
+
 
     /**
      * Sucht und gibt einen Shop basierend auf seiner UUID zurück.
      *
      * @param uuid Die UUID des Shops.
      * @return Ein Optional, das den gefundenen Shop enthält, oder ein leeres Optional, wenn kein Shop gefunden wurde.
-     */    public Optional<Shop> findShopById(UUID uuid) {
+     */
+    public Optional<Shop> findShopById(UUID uuid) {
         LOG.info("Looking up shop for id {}", uuid);
         return shopRepository.findById(uuid);
     }
+
 }
