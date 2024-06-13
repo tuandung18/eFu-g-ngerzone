@@ -50,6 +50,20 @@ class ShopBrowsingTest {
             10,
             "test@owner.de"
     );
+    final private Shop coffeeAndGuns = new Shop(
+            UUID.randomUUID(),
+            "Coffee and Guns Shop",
+            "Unser Name ist Programm. Wir bieten Ihnen Kaffee von kleinen, aber ausgezeichneten Kaffee" +
+                    "bauern, von welchen wir unsere Ware direkt beziehen. Der Umweg über den Zwischenhandel " +
+                    "entfällt, so dass Spitzenweine zu einem günstigen Preis angeboten werden können. Außerdem " +
+                    "verkaufen wir waffen.",
+            Set.of(VideoMessenger.ZOOM),
+            usualWeeklyOpeningHours,
+            Set.of(Tag.of("guns"), Tag.of("yolo")),
+            true,
+            10,
+            "test@owner.de"
+    );
 
     @Test
     void whenShopNotFoundThenReturnEmptyList() {
@@ -75,11 +89,6 @@ class ShopBrowsingTest {
         assertThat(shops).containsExactly(wineAndCoffee);
     }
 
-
-
-    @Test
-    void findShopsByQuery() {
-    }
 
     @Test
     void whenShopWithThisIDExistsThenReturnIt() {
@@ -124,6 +133,36 @@ class ShopBrowsingTest {
             // when
             assertThatThrownBy(() -> shopBrowsing.getShopByOwner("unknown-email"))
                     .isInstanceOf(ShopNotFoundException.class);
+        }
+    }
+
+    @Nested
+    class findShopsByQuery {
+        @Test
+        void whenNoShopMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(emptySet());
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("unknown-name"), Set.of(Tag.of("unknown-tag")));
+
+            assertThat(shops).isEmpty();
+        }
+
+        @Test
+        void whenOneShopMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(Set.of(wineAndCoffee));
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("Wine and Coffee"), Set.of());
+
+            assertThat(shops).containsOnly(wineAndCoffee);
+        }
+
+        @Test
+        void whenMultipleShopsMatchesQuery() {
+            given(repository.findPredicate(any())).willReturn(Set.of(wineAndCoffee, coffeeAndGuns));
+
+            var shops = shopBrowsing.findShopsByQuery(Set.of("coffee"), Set.of(Tag.of("yolo")));
+
+            assertThat(shops).containsOnly(wineAndCoffee, coffeeAndGuns);
         }
     }
 
