@@ -4,6 +4,8 @@ import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentFilter;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.ShopRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -16,6 +18,7 @@ import java.util.UUID;
 
 @Service
 public class AppointmentScheduling {
+    private static final Logger LOG = LoggerFactory.getLogger(Reporting.class);
 
     private final AppointmentRepository appointmentRepository;
     private final ShopRepository shopRepository;

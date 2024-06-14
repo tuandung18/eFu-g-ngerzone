@@ -2,6 +2,8 @@ package de.hda.fbi.efussgaengerzone.adapter;
 
 import de.hda.fbi.efussgaengerzone.domain.usecase.abstractions.SecurePasswordValidator;
 import org.passay.*;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +20,8 @@ class AlphabeticalSequenceRule implements Rule {
         return new RuleResult(true);
     }
 }
-
+@Component
+@Primary
 public class SecurePasswordValidatorImpl implements SecurePasswordValidator {
 
     private static final PasswordValidator validator = new PasswordValidator(
@@ -30,7 +33,8 @@ public class SecurePasswordValidatorImpl implements SecurePasswordValidator {
             new IllegalSequenceRule(EnglishSequenceData.Numerical, 5, false),
             new IllegalSequenceRule(EnglishSequenceData.USQwerty, 5, false),
             new WhitespaceRule(),
-            new AlphabeticalSequenceRule()
+            new AlphabeticalSequenceRule(),
+            new RepeatCharactersRule(3)
     );
 
 
