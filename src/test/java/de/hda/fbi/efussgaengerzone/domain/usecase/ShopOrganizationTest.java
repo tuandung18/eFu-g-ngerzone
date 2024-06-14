@@ -22,9 +22,10 @@ class ShopOrganizationTest {
     private final ShopOrganization sut = new ShopOrganization(shopRepository);
 
     @Test
-    void whenShopCreatedItIsSavedInMock() {
-            sut.createShop(SAMPLE_SHOP);
-            verify(shopRepository).save(SAMPLE_SHOP);
+    void createShop() {
+        Shop shop = new Shop(UUID.randomUUID(), "name", "description", Set.of(), null, Set.of(), false, 15, "");
+            sut.createShop(shop);
+            verify(shopRepository).save(shop);
         }
 
 
