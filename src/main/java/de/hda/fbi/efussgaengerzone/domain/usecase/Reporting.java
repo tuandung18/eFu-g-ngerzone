@@ -41,6 +41,7 @@ public class Reporting {
 
 
     public ShopReport getShopReport(UUID id) {
+        LOG.info("Generating shop report for shopId {}", id);
         Collection<Appointment> appointments = appointmentRepository.findForShopId(id);
 
         List<Appointment> l = appointments.stream().collect(Collectors.toList());
@@ -89,6 +90,7 @@ public class Reporting {
             }
 
         }
+        LOG.info("Shop report generated for shopId {}", id);
         return new ShopReport(aLW, aCW, aNW, mpVm == null ? Optional.empty() : Optional.of(mpVm.getKey()), tC);
     }
 

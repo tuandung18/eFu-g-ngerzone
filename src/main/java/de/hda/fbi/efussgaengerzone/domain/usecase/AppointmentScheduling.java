@@ -28,12 +28,16 @@ public class AppointmentScheduling {
         this.shopRepository = shopRepository;
     }
 
-    public void makeAppointment(UUID shopid, Appointment appointment) {
-        appointmentRepository.save(shopid, appointment);
+    public void makeAppointment(UUID shopId, Appointment appointment) {
+        LOG.info("Making appointment for shopId {} with details {}", shopId, appointment);
+        appointmentRepository.save(shopId, appointment);
+        LOG.info("Appointment made successfully for shopId {}", shopId);
     }
 
     public void deleteAppointment(UUID shopId, UUID appointmentId) {
+        LOG.info("Deleting appointment with id {} for shopId {}", appointmentId, shopId);
         appointmentRepository.delete(shopId, appointmentId);
+        LOG.info("Appointment with id {} deleted successfully for shopId {}", appointmentId, shopId);
     }
 
     public Optional<Appointment> findNextAppointment(UUID shopId) {
@@ -45,9 +49,13 @@ public class AppointmentScheduling {
     }
 
     public List<LocalTime> availableDatesOnDay(UUID shopid, DayOfWeek dayOfWeek) throws ShopNotFoundException {
+        LOG.info("Checking available dates on day {} for shopId {}", dayOfWeek, shopid);
         if (shopRepository.findById(shopid).isEmpty()) {
+            LOG.error("Shop not found for id {}", shopid);
             throw new ShopNotFoundException(shopid);
         }
+        LOG.info("Found {} available dates for shopId {}", List.of().size(), shopid);
+
         return List.of();
     }
 

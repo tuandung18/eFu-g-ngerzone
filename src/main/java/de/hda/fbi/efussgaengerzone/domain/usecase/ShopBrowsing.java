@@ -56,6 +56,7 @@ public class ShopBrowsing {
      * @return Ein Set von allen Shops.
      */
     public Set<Shop> findAll() {
+        LOG.debug("Fetching all shops");
         return shopRepository.findAll();
     }
 

@@ -31,11 +31,14 @@ public class OwnerRegistration {
     }
 
     public Owner register(Owner owner) throws InsecurePasswordException {
+        LOG.info("Registering owner with email {}", owner.email());
         if(!passwordValidator.isPasswordSecure(owner.password())) {
+            LOG.error("Insecure password for owner with email {}", owner.email());
             throw new InsecurePasswordException();
         }
 
         if(ownerRepository.find(owner.email()) != null) {
+            LOG.warn("Owner with email {} already exists", owner.email());
             throw new OwnerAlreadyExistsException(owner.email());
         }
 

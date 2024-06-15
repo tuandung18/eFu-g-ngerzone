@@ -14,3 +14,229 @@
 2024-06-14T12:04:35.791+02:00  INFO 36741 --- [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2024-06-14T12:04:35.791+02:00  INFO 36741 --- [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2024-06-14T12:04:35.792+02:00  INFO 36741 --- [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-06-15T15:26:30.788+02:00  INFO 8540 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : Starting EfussgaengerzoneApplication using Java 19.0.2 with PID 8540 (C:\Users\aiham\IdeaProjects\ss24_se_fr1_grp02\target\classes started by aiham in C:\Users\aiham\IdeaProjects\ss24_se_fr1_grp02)
+2024-06-15T15:26:30.793+02:00  INFO 8540 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : The following 1 profile is active: "debug"
+2024-06-15T15:26:30.876+02:00  INFO 8540 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-06-15T15:26:30.876+02:00  INFO 8540 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-06-15T15:26:32.660+02:00  INFO 8540 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-06-15T15:26:32.678+02:00  INFO 8540 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-06-15T15:26:32.679+02:00  INFO 8540 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.1]
+2024-06-15T15:26:32.757+02:00  INFO 8540 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-06-15T15:26:32.758+02:00  INFO 8540 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1880 ms
+2024-06-15T15:26:33.495+02:00  INFO 8540 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-06-15T15:26:33.505+02:00  INFO 8540 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-06-15T15:26:33.579+02:00  INFO 8540 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-06-15T15:26:33.593+02:00  INFO 8540 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : Started EfussgaengerzoneApplication in 3.597 seconds (process running for 4.675)
+2024-06-15T15:26:34.032+02:00  INFO 8540 --- [RMI TCP Connection(2)-192.168.56.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-15T15:26:34.033+02:00  INFO 8540 --- [RMI TCP Connection(2)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-06-15T15:26:34.034+02:00  INFO 8540 --- [RMI TCP Connection(2)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-06-15T15:27:19.254+02:00  INFO 8540 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [shop, cigar] and tags []
+2024-06-15T15:27:23.054+02:00  INFO 8540 --- [http-nio-8080-exec-1] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [shop, cigar] and tags []
+2024-06-15T15:27:59.121+02:00  INFO 8540 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [Cigar, shop] and tags []
+2024-06-15T15:28:05.259+02:00  INFO 8540 --- [http-nio-8080-exec-1] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [Shop, Cigar] and tags []
+2024-06-15T15:28:20.819+02:00  INFO 8540 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [Wine] and tags []
+2024-06-15T15:28:27.222+02:00  INFO 8540 --- [http-nio-8080-exec-1] d.h.f.e.domain.usecase.ShopBrowsing      : finding all shops with words [cigar] and tags []
+2024-06-15T15:32:30.753+02:00 ERROR 8540 --- [http-nio-8080-exec-8] d.h.f.e.v.c.ExceptionHandlerController   : Unhandled exception occurred
+
+java.time.format.DateTimeParseException: Text '' could not be parsed at index 0
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2106) ~[na:na]
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:2008) ~[na:na]
+	at java.base/java.time.LocalTime.parse(LocalTime.java:473) ~[na:na]
+	at java.base/java.time.LocalTime.parse(LocalTime.java:458) ~[na:na]
+	at de.hda.fbi.efussgaengerzone.views.mapper.WeeklyOpeningHoursMapper.mapDailyOpeningHours(WeeklyOpeningHoursMapper.java:34) ~[classes/:na]
+	at de.hda.fbi.efussgaengerzone.views.mapper.WeeklyOpeningHoursMapper.mapWeeklyOpeningHours(WeeklyOpeningHoursMapper.java:19) ~[classes/:na]
+	at de.hda.fbi.efussgaengerzone.views.controller.RegisterShopController.register(RegisterShopController.java:70) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:207) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:152) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:973) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:906) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:731) ~[tomcat-embed-core-10.1.1.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:880) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814) ~[tomcat-embed-core-10.1.1.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1739) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at java.base/java.lang.Thread.run(Thread.java:1589) ~[na:na]
+
+2024-06-15T15:32:30.765+02:00  WARN 8540 --- [http-nio-8080-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.time.format.DateTimeParseException: Text '' could not be parsed at index 0]
+2024-06-15T15:39:06.158+02:00  INFO 24144 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : Starting EfussgaengerzoneApplication using Java 19.0.2 with PID 24144 (C:\Users\aiham\IdeaProjects\ss24_se_fr1_grp02\target\classes started by aiham in C:\Users\aiham\IdeaProjects\ss24_se_fr1_grp02)
+2024-06-15T15:39:06.161+02:00  INFO 24144 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : The following 1 profile is active: "debug"
+2024-06-15T15:39:06.231+02:00  INFO 24144 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-06-15T15:39:06.231+02:00  INFO 24144 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-06-15T15:39:07.611+02:00  INFO 24144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-06-15T15:39:07.621+02:00  INFO 24144 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-06-15T15:39:07.622+02:00  INFO 24144 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.1]
+2024-06-15T15:39:07.667+02:00  INFO 24144 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-06-15T15:39:07.668+02:00  INFO 24144 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1435 ms
+2024-06-15T15:39:08.332+02:00  INFO 24144 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-06-15T15:39:08.339+02:00  INFO 24144 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-06-15T15:39:08.397+02:00  INFO 24144 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-06-15T15:39:08.410+02:00  INFO 24144 --- [restartedMain] d.h.f.e.EfussgaengerzoneApplication      : Started EfussgaengerzoneApplication in 2.953 seconds (process running for 3.84)
+2024-06-15T15:39:08.987+02:00  INFO 24144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-15T15:39:08.988+02:00  INFO 24144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-06-15T15:39:08.990+02:00  INFO 24144 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-06-15T15:40:06.154+02:00  INFO 24144 --- [http-nio-8080-exec-1] d.h.f.e.d.usecase.OwnerRegistration      : Registering owner with email aiham.zaria@hotmail.com
+2024-06-15T15:40:06.159+02:00 ERROR 24144 --- [http-nio-8080-exec-1] d.h.f.e.v.c.ExceptionHandlerController   : Unhandled exception occurred
+
+java.time.format.DateTimeParseException: Text '' could not be parsed at index 0
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2106) ~[na:na]
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:2008) ~[na:na]
+	at java.base/java.time.LocalTime.parse(LocalTime.java:473) ~[na:na]
+	at java.base/java.time.LocalTime.parse(LocalTime.java:458) ~[na:na]
+	at de.hda.fbi.efussgaengerzone.views.mapper.WeeklyOpeningHoursMapper.mapDailyOpeningHours(WeeklyOpeningHoursMapper.java:34) ~[classes/:na]
+	at de.hda.fbi.efussgaengerzone.views.mapper.WeeklyOpeningHoursMapper.mapWeeklyOpeningHours(WeeklyOpeningHoursMapper.java:20) ~[classes/:na]
+	at de.hda.fbi.efussgaengerzone.views.controller.RegisterShopController.register(RegisterShopController.java:70) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:207) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:152) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1080) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:973) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:906) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:731) ~[tomcat-embed-core-10.1.1.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:880) ~[spring-webmvc-6.0.2.jar:6.0.2]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814) ~[tomcat-embed-core-10.1.1.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.2.jar:6.0.2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:861) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1739) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.1.jar:10.1.1]
+	at java.base/java.lang.Thread.run(Thread.java:1589) ~[na:na]
+
+2024-06-15T15:40:06.169+02:00  WARN 24144 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.time.format.DateTimeParseException: Text '' could not be parsed at index 0]
+2024-06-15T15:42:05.021+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.d.usecase.OwnerRegistration      : Registering owner with email aiham@cafe.de
+2024-06-15T15:42:21.278+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.d.usecase.OwnerRegistration      : Login successful for user aiham@cafe.de
+2024-06-15T15:42:21.289+02:00  INFO 24144 --- [http-nio-8080-exec-4] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:42:21.289+02:00  INFO 24144 --- [http-nio-8080-exec-4] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:42:21.290+02:00  INFO 24144 --- [http-nio-8080-exec-4] d.h.f.e.domain.usecase.Reporting         : Generating shop report for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:42:21.290+02:00  INFO 24144 --- [http-nio-8080-exec-4] d.h.f.e.domain.usecase.Reporting         : Shop report generated for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:43:04.001+02:00  INFO 24144 --- [http-nio-8080-exec-8] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:43:04.001+02:00  INFO 24144 --- [http-nio-8080-exec-8] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:43:06.863+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:43:06.863+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:43:07.887+02:00  INFO 24144 --- [http-nio-8080-exec-8] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:43:08.497+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:43:08.498+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:43:08.498+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.domain.usecase.Reporting         : Generating shop report for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:43:08.498+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.domain.usecase.Reporting         : Shop report generated for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:43:11.615+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.393+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.395+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day MONDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.396+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.396+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day TUESDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.397+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.397+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day WEDNESDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.397+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.397+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day THURSDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.398+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.398+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day FRIDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.398+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.398+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day SATURDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:43:19.399+02:00  INFO 24144 --- [http-nio-8080-exec-7] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.904+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.905+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day MONDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.905+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day TUESDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day WEDNESDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day THURSDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.906+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.907+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day FRIDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.907+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.907+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Checking available dates on day SATURDAY for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:45.907+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.Reporting         : Found 0 available dates for shopId 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:44:52.169+02:00  INFO 24144 --- [http-nio-8080-exec-9] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:45:00.957+02:00  INFO 24144 --- [http-nio-8080-exec-5] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 9722397a-44ab-4424-a8f5-ebe7f01132a8
+2024-06-15T15:45:15.000+02:00  INFO 24144 --- [http-nio-8080-exec-3] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for id 7f13b1a1-3f1f-48ff-ad93-073aef223215
+2024-06-15T15:45:34.421+02:00  INFO 24144 --- [http-nio-8080-exec-9] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:45:34.421+02:00  INFO 24144 --- [http-nio-8080-exec-9] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:45:34.422+02:00  INFO 24144 --- [http-nio-8080-exec-9] d.h.f.e.domain.usecase.Reporting         : Generating shop report for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:45:34.422+02:00  INFO 24144 --- [http-nio-8080-exec-9] d.h.f.e.domain.usecase.Reporting         : Shop report generated for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:45:36.386+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:45:37.715+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:45:37.716+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:45:42.601+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:45:42.602+02:00  INFO 24144 --- [http-nio-8080-exec-10] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:45:43.894+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.d.usecase.OwnerRegistration      : Looking up owner aiham@cafe.de
+2024-06-15T15:45:43.895+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.ShopBrowsing      : Looking up shop for owner aiham@cafe.de
+2024-06-15T15:45:43.895+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.Reporting         : Generating shop report for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:45:43.895+02:00  INFO 24144 --- [http-nio-8080-exec-6] d.h.f.e.domain.usecase.Reporting         : Shop report generated for shopId f38d8e0d-b394-4fe7-b664-7524fdc1d0cc
+2024-06-15T15:46:28.397+02:00  INFO 24144 --- [http-nio-8080-exec-2] d.h.f.e.d.usecase.OwnerRegistration      : Login failed for user 4r34t
