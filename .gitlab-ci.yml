@@ -12,7 +12,7 @@ build:
   image: $BUILD_IMAGE
   script:
     - chmod 777 ./mvnw
-    - ./mvnw install --fail-at-end
+    - ./mvnw verify --fail-at-end
   artifacts:
     paths:
       - target/
