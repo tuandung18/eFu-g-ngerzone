@@ -11,7 +11,7 @@ build:
   stage: build
   image: $BUILD_IMAGE
   script:
-    - chmod 777 ./mvnw
+    - chmod +x ./mvnw
     - ./mvnw verify --fail-at-end
   artifacts:
     paths:
@@ -29,6 +29,7 @@ pages:
   image: $BUILD_IMAGE
   dependencies: []
   script:
+    - chmod +x ./mvnw
     - apk add gettext
     - mkdir public
     - envsubst '$CI_PROJECT_NAME,$CI_COMMIT_TAG' < doc/index.html > public/index.html
