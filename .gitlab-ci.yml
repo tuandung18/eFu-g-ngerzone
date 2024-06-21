@@ -11,7 +11,7 @@ build:
   stage: build
   image: $BUILD_IMAGE
   script:
-    - ./mvnw spring-boot:run --fail-at-end
+    - chmod 777 ./mvnw spring-boot:run --fail-at-end
   artifacts:
     paths:
       - target/
