@@ -1,0 +1,3 @@
+logging:
+  file:
+    name: src/main/resources/logs/application-debug.log

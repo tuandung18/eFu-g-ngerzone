@@ -4,6 +4,8 @@ import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
 import de.hda.fbi.efussgaengerzone.domain.model.reporting.ShopReport;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.VideoMessenger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class Reporting {
-
+    private static final Logger LOG = LoggerFactory.getLogger(Reporting.class);
     private final AppointmentRepository appointmentRepository;
 
     public Reporting(AppointmentRepository appointmentRepository) {
@@ -39,6 +41,7 @@ public class Reporting {
 
 
     public ShopReport getShopReport(UUID id) {
+        LOG.info("Generating shop report for shopId {}", id);
         Collection<Appointment> appointments = appointmentRepository.findForShopId(id);
 
         List<Appointment> l = appointments.stream().collect(Collectors.toList());
@@ -87,6 +90,7 @@ public class Reporting {
             }
 
         }
+        LOG.info("Shop report generated for shopId {}", id);
         return new ShopReport(aLW, aCW, aNW, mpVm == null ? Optional.empty() : Optional.of(mpVm.getKey()), tC);
     }
 
