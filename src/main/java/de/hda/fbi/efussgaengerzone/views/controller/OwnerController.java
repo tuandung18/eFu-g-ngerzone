@@ -51,7 +51,7 @@ import static de.hda.fbi.efussgaengerzone.views.model.AppointmentFilterTypeDto.T
 @Controller
 @RequestMapping("owner")
 public class OwnerController {
-    private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime).reversed();
+    private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime);
 
     private final OwnerRegistration ownerRegistration;
     private final ShopBrowsing shopBrowsing;
@@ -78,7 +78,7 @@ public class OwnerController {
                 OwnerDto.fromOwner(owner),
                 ShopDto.fromShop(shop),
                 ShopReportDto.fromShopReport(report),
-                nextAppointment.isPresent() ? AppointmentDto.fromAppointment(nextAppointment.get()) : null));
+                nextAppointment.map(AppointmentDto::fromAppointment).orElse(null)));
     }
 
     record OwnerViewModel(OwnerDto owner, ShopDto shop, ShopReportDto report, AppointmentDto nextAppointment) {
