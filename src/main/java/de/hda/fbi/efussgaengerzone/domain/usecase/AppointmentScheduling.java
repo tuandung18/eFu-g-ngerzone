@@ -42,6 +42,7 @@ public class AppointmentScheduling {
 
     public Optional<Appointment> findNextAppointment(UUID shopId) {
         LOG.info("Looking up next appointment for shopId {}", shopId);
+        return Optional.empty();
     }
 
     public Collection<Appointment> searchAppointments(UUID shopId, Set<AppointmentFilter> filters) {
