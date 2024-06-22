@@ -13,10 +13,6 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.*;
 
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-
 @Service
 public class AppointmentScheduling {
     private static final Logger LOG = LoggerFactory.getLogger(Reporting.class);
