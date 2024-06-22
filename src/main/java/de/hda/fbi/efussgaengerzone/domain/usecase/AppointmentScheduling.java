@@ -2,6 +2,7 @@ package de.hda.fbi.efussgaengerzone.domain.usecase;
 
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentFilter;
+import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentFilterFuture;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.ShopRepository;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Service
 public class AppointmentScheduling {
     private static final Logger LOG = LoggerFactory.getLogger(Reporting.class);
+    private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime);
 
     private final AppointmentRepository appointmentRepository;
     private final ShopRepository shopRepository;
@@ -41,7 +43,11 @@ public class AppointmentScheduling {
     }
 
     public Optional<Appointment> findNextAppointment(UUID shopId) {
-        return Optional.empty();
+        LOG.info("Looking up next appointment for shopId {}", shopId);
+        return searchAppointments(shopId, Set
+                .of(AppointmentFilterFuture.INSTANCE))
+                .stream()
+                .min(APPOINTMENT_COMPARATOR);
     }
 
     public Collection<Appointment> searchAppointments(UUID shopId, Set<AppointmentFilter> filters) {

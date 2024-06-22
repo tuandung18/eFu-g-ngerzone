@@ -23,6 +23,8 @@ import de.hda.fbi.efussgaengerzone.views.model.ShopReportDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,8 +53,7 @@ import static de.hda.fbi.efussgaengerzone.views.model.AppointmentFilterTypeDto.T
 @Controller
 @RequestMapping("owner")
 public class OwnerController {
-    private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime).reversed();
-
+    private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime);
     private final OwnerRegistration ownerRegistration;
     private final ShopBrowsing shopBrowsing;
     private final ShopOrganization shopOrganization;
@@ -73,7 +74,6 @@ public class OwnerController {
         Shop shop = shopBrowsing.getShopByOwner(owner.email());
         Optional<Appointment> nextAppointment = appointmentScheduling.findNextAppointment(shop.id());
         ShopReport report = reporting.getShopReport(shop.id());
-
         return new ModelAndView("ownerOverview", ViewConstants.MODEL_NAME, new OwnerViewModel(
                 OwnerDto.fromOwner(owner),
                 ShopDto.fromShop(shop),
