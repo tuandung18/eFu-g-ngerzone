@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -51,7 +51,17 @@ public class AppointmentScheduling {
     }
 
     public Collection<Appointment> searchAppointments(UUID shopId, Set<AppointmentFilter> filters) {
-        return List.of();
+        LOG.info("Searching appointments for shopId {} with filters {}", shopId, filters);
+        return shopRepository
+                .findById(shopId)
+                .map(shop -> appointmentRepository
+                        .findForShopId(shopId)
+                        .stream()
+                        .filter(appointment -> filters
+                                .stream()
+                                .allMatch(filter -> filter.test(appointment)))
+                        .toList())
+                .orElseGet(List::of);
     }
 
     public List<LocalTime> availableDatesOnDay(UUID shopid, DayOfWeek dayOfWeek) throws ShopNotFoundException {

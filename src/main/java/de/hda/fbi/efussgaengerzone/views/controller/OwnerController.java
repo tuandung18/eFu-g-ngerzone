@@ -78,7 +78,7 @@ public class OwnerController {
                 OwnerDto.fromOwner(owner),
                 ShopDto.fromShop(shop),
                 ShopReportDto.fromShopReport(report),
-                nextAppointment.isPresent() ? AppointmentDto.fromAppointment(nextAppointment.get()) : null));
+                nextAppointment.map(AppointmentDto::fromAppointment).orElse(null)));
     }
 
     record OwnerViewModel(OwnerDto owner, ShopDto shop, ShopReportDto report, AppointmentDto nextAppointment) {
