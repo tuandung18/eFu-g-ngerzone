@@ -86,7 +86,8 @@ public class OwnerController {
 
     @GetMapping("/appointments")
     public ModelAndView ownerAppointmentsView(HttpServletRequest request,
-                                              @RequestParam(value = "filter", defaultValue = "", required = false) List<AppointmentFilterTypeDto> filters) {
+                                              @RequestParam(value = "filter", defaultValue = "", required = false) List<AppointmentFilterTypeDto> filters)
+    {
         Owner owner = getOwner(request);
         ShopDto shop = ShopDto.fromShop(shopBrowsing.getShopByOwner(owner.email()));
 
