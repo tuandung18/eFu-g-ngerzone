@@ -2,6 +2,7 @@ package de.hda.fbi.efussgaengerzone.domain.usecase;
 
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.Appointment;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentFilter;
+import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentFilterFuture;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.Shop;
 import de.hda.fbi.efussgaengerzone.domain.model.shop.ShopRepository;
 import de.hda.fbi.efussgaengerzone.domain.model.appointment.AppointmentRepository;
@@ -22,6 +23,8 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AppointmentSchedulingTest {
@@ -63,7 +66,7 @@ public class AppointmentSchedulingTest {
 
         shop = new Shop(shopId, "Test Shop", "Description", new HashSet<>(), weeklyOpeningHours, new HashSet<>(), true, 30, "owner@example.com");
 
-        appointment = new Appointment(UUID.randomUUID(), "John Doe", null, "123456789", LocalDateTime.now().plusHours(1), Duration.ofMinutes(15));
+        appointment = new Appointment(UUID.randomUUID(), "John Doe", null, "123456789", LocalDateTime.now().plusDays(3), Duration.ofMinutes(15));
 
         // Simple filter that accepts all appointments
         filter = appointment -> true;
@@ -93,6 +96,8 @@ public class AppointmentSchedulingTest {
     public void whenNextAppointmentExists() {
         when(shopRepository.findById(shopId)).thenReturn(Optional.of(shop));
         when(appointmentRepository.findForShopId(shopId)).thenReturn(List.of(appointment));
+        when(appointmentScheduling.searchAppointments(shopId, Set.of(AppointmentFilterFuture.INSTANCE)))
+                .thenReturn(List.of(appointment));
 
         Optional<Appointment> nextAppointment = appointmentScheduling.findNextAppointment(shopId);
 
