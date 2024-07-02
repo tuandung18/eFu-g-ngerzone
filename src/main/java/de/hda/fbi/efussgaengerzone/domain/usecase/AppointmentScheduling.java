@@ -66,50 +66,6 @@ public class AppointmentScheduling {
     }
 
 
-    public List<LocalTime> availableDatesOnDay(UUID shopId, DayOfWeek dayOfWeek) throws ShopNotFoundException {
-        LOG.info("Checking available dates on day {} for shopId {}", dayOfWeek, shopId);
-
-        // Check if the shop exists
-        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> {
-            LOG.error("Shop not found for id {}", shopId);
-            return new ShopNotFoundException(shopId);
-        });
-
-        OpeningHours openingHours = getOpeningHoursForDay(shop.weeklyOpeningHours(), dayOfWeek);
-        if (openingHours == null || openingHours.openingTime() == null || openingHours.closingTime() == null) {
-            LOG.info("Shop is closed on day {} for shopId {}", dayOfWeek, shopId);
-            return List.of();
-        }
-
-        LocalTime openingTime = openingHours.openingTime();
-        LocalTime closingTime = openingHours.closingTime();
-
-        int appointmentDurationMinutes = shop.minsPerCustomer();
-        List<LocalTime> allPossibleTimes = new ArrayList<>();
-        LocalTime currentTime = openingTime;
-
-        while (currentTime.plusMinutes(appointmentDurationMinutes).isBefore(closingTime) || currentTime.plusMinutes(appointmentDurationMinutes).equals(closingTime)) {
-            allPossibleTimes.add(currentTime);
-            currentTime = currentTime.plusMinutes(appointmentDurationMinutes);
-        }
-
-        List<Appointment> appointmentsOnDay = appointmentRepository.findForShopId(shopId)
-                .stream()
-                .filter(appointment -> appointment.dateTime().getDayOfWeek() == dayOfWeek)
-                .toList();
-
-        Set<LocalTime> bookedTimes = appointmentsOnDay.stream()
-                .map(appointment -> appointment.dateTime().toLocalTime())
-                .collect(Collectors.toSet());
-
-        List<LocalTime> availableTimes = allPossibleTimes.stream()
-                .filter(time -> !bookedTimes.contains(time))
-                .collect(Collectors.toList());
-
-        LOG.info("Found {} available dates for shopId {}", availableTimes.size(), shopId);
-        return availableTimes;
-    }
-
     private OpeningHours getOpeningHoursForDay(WeeklyOpeningHours weeklyOpeningHours, DayOfWeek dayOfWeek) {
         return switch (dayOfWeek) {
             case MONDAY -> weeklyOpeningHours.monday();
@@ -120,6 +76,60 @@ public class AppointmentScheduling {
             case SATURDAY -> weeklyOpeningHours.saturday();
             default -> null;
         };
+    }
+
+    private List<LocalTime> calculateAllPossibleTimes(OpeningHours openingHours, int appointmentDurationMinutes) {
+        List<LocalTime> allPossibleTimes = new ArrayList<>();
+        LocalTime currentStartTime = openingHours.openingTime();
+
+        // Berechnet alle möglichen Terminzeiten basierend auf den Öffnungszeiten und der Dauer eines Termins
+        while (currentStartTime.plusMinutes(appointmentDurationMinutes).isBefore(openingHours.closingTime()) ||
+                currentStartTime.plusMinutes(appointmentDurationMinutes).equals(openingHours.closingTime())) {
+            allPossibleTimes.add(currentStartTime);
+            currentStartTime = currentStartTime.plusMinutes(appointmentDurationMinutes);
+        }
+        return allPossibleTimes;
+    }
+
+    private List<Appointment> findAppointmentsOnDay(UUID shopId, DayOfWeek dayOfWeek) {
+        return appointmentRepository.findForShopId(shopId)
+                .stream()
+                .filter(appointment -> appointment.dateTime().getDayOfWeek() == dayOfWeek)
+                .toList();
+    }
+
+    private List<LocalTime> calculateAvailableTimes(List<LocalTime> allPossibleTimes, List<Appointment> appointmentsOnDay) {
+        Set<LocalTime> bookedTimes = appointmentsOnDay.stream()
+                .map(appointment -> appointment.dateTime().toLocalTime())
+                .collect(Collectors.toSet());
+
+        return allPossibleTimes.stream()
+                .filter(time -> !bookedTimes.contains(time))
+                .collect(Collectors.toList());
+    }
+
+    public List<LocalTime> availableDatesOnDay(UUID shopId, DayOfWeek dayOfWeek) throws ShopNotFoundException {
+        LOG.info("Checking available dates on day {} for shopId {}", dayOfWeek, shopId);
+
+        Shop shop = shopRepository.findById(shopId).orElseThrow(() -> {
+            LOG.error("Shop not found for id {}", shopId);
+            return new ShopNotFoundException(shopId);
+        });
+
+        OpeningHours openingHours = getOpeningHoursForDay(shop.weeklyOpeningHours(), dayOfWeek);
+        if (openingHours == null) {
+            LOG.info("Shop is closed on day {} for shopId {}", dayOfWeek, shopId);
+            return List.of();
+        }
+
+        List<LocalTime> allPossibleTimes = calculateAllPossibleTimes(openingHours, shop.minsPerCustomer());
+
+        List<Appointment> appointmentsOnDay = findAppointmentsOnDay(shopId, dayOfWeek);
+
+        List<LocalTime> availableTimes = calculateAvailableTimes(allPossibleTimes, appointmentsOnDay);
+
+        LOG.info("Found {} available dates for shopId {}", availableTimes.size(), shopId);
+        return availableTimes;
     }
 
 }
