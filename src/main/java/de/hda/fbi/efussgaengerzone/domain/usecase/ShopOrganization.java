@@ -25,6 +25,15 @@ public class ShopOrganization {
     }
 
     public void updateShopEmail(UUID shopId, String newMail) {
+        Shop oldShop = shopRepository.findById(shopId).orElse(null);
+
+        if (oldShop == null) {
+            throw new ShopNotFoundException(shopId);
+        }
+
+        Shop newShop = new Shop(shopId, oldShop.name(), oldShop.description(), oldShop.supportedVideoMessengers(),
+                oldShop.weeklyOpeningHours(), oldShop.tags(), oldShop.active(), oldShop.minsPerCustomer(), newMail);
+        changeShop(newShop);
     }
 
     public void changeShop(Shop shop) {

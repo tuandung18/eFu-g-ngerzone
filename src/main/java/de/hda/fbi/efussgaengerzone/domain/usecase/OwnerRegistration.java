@@ -2,6 +2,7 @@ package de.hda.fbi.efussgaengerzone.domain.usecase;
 
 import de.hda.fbi.efussgaengerzone.domain.model.owner.Owner;
 import de.hda.fbi.efussgaengerzone.domain.model.owner.OwnerRepository;
+import de.hda.fbi.efussgaengerzone.domain.model.shop.Shop;
 import de.hda.fbi.efussgaengerzone.domain.usecase.abstractions.SecurePasswordValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,5 +62,13 @@ public class OwnerRegistration {
     }
 
     public void updateOwner(String oldEmail, String newEmail, String newName) {
+        Owner oldOwner = ownerRepository.find(oldEmail);
+        ownerRepository.delete(oldOwner);
+
+        Owner newOwner = new Owner(newName, newEmail, oldOwner.password());
+        ownerRepository.save(newOwner);
+
+        Shop shop = shopBrowsing.getShopByOwner(oldEmail);
+        shopOrganization.updateShopEmail(shop.id(), newEmail);
     }
 }
