@@ -21,6 +21,11 @@ public class OwnerRepositoryImpl implements OwnerRepository {
     }
 
     @Override
+    public void delete(Owner owner) {
+        ownersByEmail.remove(owner.email());
+    }
+
+    @Override
     public Set<Owner> findPredicate(Predicate<Owner> ownerPredicate) {
         return ownersByEmail.values().stream().filter(ownerPredicate).collect(Collectors.toSet());
     }

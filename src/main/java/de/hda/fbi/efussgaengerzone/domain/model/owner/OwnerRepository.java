@@ -7,6 +7,8 @@ public interface OwnerRepository {
 
     void save(Owner owner);
 
+    void delete(Owner owner);
+
     Set<Owner> findPredicate(Predicate<Owner> ownerPredicate);
 
     Owner find(String email);
