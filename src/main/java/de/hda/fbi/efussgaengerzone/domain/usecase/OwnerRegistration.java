@@ -62,6 +62,9 @@ public class OwnerRegistration {
     }
 
     public void updateOwner(String oldEmail, String newEmail, String newName) {
+        LOG.info("Update owner {} with Email {} to owner {} with Email {}", ownerRepository.find(oldEmail).name(),
+                oldEmail, newEmail, newEmail);
+
         Owner oldOwner = ownerRepository.find(oldEmail);
         ownerRepository.delete(oldOwner);
 

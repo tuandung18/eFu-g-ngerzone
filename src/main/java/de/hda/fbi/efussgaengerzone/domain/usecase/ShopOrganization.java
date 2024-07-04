@@ -31,6 +31,8 @@ public class ShopOrganization {
             throw new ShopNotFoundException(shopId);
         }
 
+        LOG.info("Update shop {} with Email {} to Email {}", shopId, oldShop.ownerEmail(), newMail);
+
         Shop newShop = new Shop(shopId, oldShop.name(), oldShop.description(), oldShop.supportedVideoMessengers(),
                 oldShop.weeklyOpeningHours(), oldShop.tags(), oldShop.active(), oldShop.minsPerCustomer(), newMail);
         changeShop(newShop);
