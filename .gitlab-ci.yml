@@ -36,7 +36,7 @@ pages:
 
     - ./mvnw package
     - mkdir public/release
-    - cp target/efussgaengerzone-*.jar public/release/app.jar
+    - cp target/efussgaengerzone_fr1_p2-*.jar public/release/app.jar
 
     - ./mvnw javadoc:javadoc
     - mkdir public/apidocs
