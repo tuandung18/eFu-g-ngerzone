@@ -44,53 +44,34 @@ public class Reporting {
         LOG.info("Generating shop report for shopId {}", id);
         Collection<Appointment> appointments = appointmentRepository.findForShopId(id);
 
-        List<Appointment> l = appointments.stream().toList();
-        long aLW = 0;
-        long aCW = 0;
-        long aNW = 0;
-        long tC = 0;
-        Set<String> c = new HashSet<>(); // creates a new set
-        Map<VideoMessenger, Long> vm = new HashMap<>();
-        for (int i = 0; i < appointments.size(); i++) {
-            Appointment x = l.get(i);
+        LocalDate now = LocalDate.now();
+        LocalDate lastWeekStart = now.minusDays(7).with(ChronoField.DAY_OF_WEEK, 1).minusDays(1);
+        LocalDate thisWeekStart = now.with(ChronoField.DAY_OF_WEEK, 1);
+        LocalDate nextWeekStart = now.plusDays(7).with(ChronoField.DAY_OF_WEEK, 1);
+        LocalDate weekAfterNextStart = now.plusDays(14).with(ChronoField.DAY_OF_WEEK, 1);
 
-            if (x.dateTime().toLocalDate().isAfter(LocalDate.now().minusDays(7).with(ChronoField.DAY_OF_WEEK, 1).minusDays(1)) && x.dateTime().toLocalDate().isBefore(LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1))) {
-                aLW++;
-            }
-            if (x.dateTime().toLocalDate().isBefore(LocalDate.now().plusDays(7).with(ChronoField.DAY_OF_WEEK, 1)) && x.dateTime().toLocalDate().isAfter(LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1).minusDays(1))) {
-                aCW++;
-            }
-            if (x.dateTime().toLocalDate().isBefore(LocalDate.now().plusDays(14).with(ChronoField.DAY_OF_WEEK, 1)) && x.dateTime().toLocalDate().isAfter(LocalDate.now().plusDays(7).with(ChronoField.DAY_OF_WEEK, 1).minusDays(1))) {
-                aNW++;
-            }
-            if (!isC(c, x.customerName())) {
-                tC++;
-                c.add(x.customerName());
-            }
-            VideoMessenger m = x.chosenMessenger();
-            if (vm.containsKey(m)) {
-                Long vmc = vm.get(m);
-                vm.put(m, Long.valueOf(vmc + 1));
-            } else {
-                vm.put(m, 1l);
-            }
-        }
+        long appointmentsLastWeek = appointments.stream()
+                .filter(a -> a.dateTime().toLocalDate().isAfter(lastWeekStart) && a.dateTime().toLocalDate().isBefore(thisWeekStart))
+                .count();
+        long appointmentsCurrentWeek = appointments.stream()
+                .filter(a -> a.dateTime().toLocalDate().isAfter(thisWeekStart.minusDays(1)) && a.dateTime().toLocalDate().isBefore(nextWeekStart))
+                .count();
+        long appointmentsNextWeek = appointments.stream()
+                .filter(a -> a.dateTime().toLocalDate().isAfter(nextWeekStart.minusDays(1)) && a.dateTime().toLocalDate().isBefore(weekAfterNextStart))
+                .count();
+        Set<String> uniqueCustomers = appointments.stream()
+                .map(Appointment::customerName)
+                .collect(Collectors.toSet());
+        long totalCustomers = uniqueCustomers.size();
 
-        Map.Entry<VideoMessenger, Long> mpVm = null;
-        for (Map.Entry<VideoMessenger, Long> e : vm.entrySet()) {
-            if (mpVm == null) {
-                mpVm = e;
-                continue;
-            }
-            if (mpVm.getValue() > e.getValue()) {
-                continue;
-            }
-            mpVm = e;
+        Map<VideoMessenger, Long> videoMessengerCount = appointments.stream()
+                .collect(Collectors.groupingBy(Appointment::chosenMessenger, Collectors.counting()));
 
-        }
+        Optional<VideoMessenger> mostPreferredMessenger = videoMessengerCount.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey);
+
         LOG.info("Shop report generated for shopId {}", id);
-        return new ShopReport(aLW, aCW, aNW, mpVm == null ? Optional.empty() : Optional.of(mpVm.getKey()), tC);
+        return new ShopReport(appointmentsLastWeek, appointmentsCurrentWeek, appointmentsNextWeek, mostPreferredMessenger, totalCustomers);
     }
-
 }
-
