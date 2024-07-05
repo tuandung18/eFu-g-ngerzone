@@ -34,7 +34,7 @@ analyze:
         branchParameter=-Dsonar.branch.name="$CI_COMMIT_REF_NAME"
       fi
     - chmod +x ./mvnw
-    - ./mvnw sonar:sonar -Dsonar.projectKey="$CI_PROJECT_NAME" -Dsonar.projectName="$CI_PROJECT_NAME" -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_TOKEN" -Dsonar.qualitygate.wait=true "$branchParameter"
+    - ./mvnw sonar:sonar -Dsonar.projectKey="efussgaengerzone_fr1_p2" -Dsonar.projectName="efussgaengerzone_fr1_p2" -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_TOKEN" -Dsonar.qualitygate.wait=true "$branchParameter"
 
 pages:
   stage: deploy
