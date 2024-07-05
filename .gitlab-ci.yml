@@ -5,6 +5,7 @@ variables:
 
 stages:
   - build
+  - analyze
   - deploy
 
 build:
@@ -21,6 +22,18 @@ build:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .m2/repository
+
+analyze:
+  stage: analyze
+  image: $BUILD_IMAGE
+  dependencies: [build]
+  allow_failure: true
+  script:
+    - |
+      if [[ "$CI_DEFAULT_BRANCH" != "$CI_COMMIT_REF_NAME" ]]; then # on non-default branches provide branch name to sonar
+        branchParameter=-Dsonar.branch.name="$CI_COMMIT_REF_NAME"
+      fi
+    - mvn sonar:sonar -Dsonar.projectKey="$CI_PROJECT_NAME" -Dsonar.projectName="$CI_PROJECT_NAME" -Dsonar.host.url="$SONAR_URL" -Dsonar.login="$SONAR_TOKEN" -Dsonar.qualitygate.wait=true "$branchParameter"
 
 pages:
   stage: deploy
