@@ -70,7 +70,7 @@ public class Reporting {
         Optional<VideoMessenger> mostPreferredMessenger = videoMessengerCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey);
-
+        //TODO: 
         LOG.info("Shop report generated for shopId {}", id);
         return new ShopReport(appointmentsLastWeek, appointmentsCurrentWeek, appointmentsNextWeek, mostPreferredMessenger, totalCustomers);
     }
