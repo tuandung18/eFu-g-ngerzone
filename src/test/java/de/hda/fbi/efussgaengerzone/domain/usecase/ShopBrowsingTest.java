@@ -21,6 +21,7 @@ import java.util.UUID;
 import static java.util.Collections.emptySet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -166,11 +167,17 @@ class ShopBrowsingTest {
 
         @Test
         void whenNoWordsOrTagsProvidedThenThrowException() {
-            // when & then
-            assertThatThrownBy(() -> shopBrowsing.findShopsByQuery(Set.of(), Set.of()))
-                    .isInstanceOf(IllegalArgumentException.class)
+            // when
+            IllegalArgumentException thrown = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> shopBrowsing.findShopsByQuery(Set.of(), Set.of())
+            );
+
+            // then
+            assertThat(thrown)
                     .hasMessage("no words or tags provided for shop search");
         }
+
     }
 
 }
