@@ -44,7 +44,7 @@ public class Reporting {
         LOG.info("Generating shop report for shopId {}", id);
         Collection<Appointment> appointments = appointmentRepository.findForShopId(id);
 
-        List<Appointment> l = appointments.stream().collect(Collectors.toList());
+        List<Appointment> l = appointments.stream().toList();
         long aLW = 0;
         long aCW = 0;
         long aNW = 0;
@@ -85,9 +85,7 @@ public class Reporting {
             if (mpVm.getValue() > e.getValue()) {
                 continue;
             }
-            if (mpVm.getValue() <= e.getValue()) {
-                mpVm = e;
-            }
+            mpVm = e;
 
         }
         LOG.info("Shop report generated for shopId {}", id);
