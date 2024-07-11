@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AppointmentScheduling {
-    private static final Logger LOG = LoggerFactory.getLogger(Reporting.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AppointmentScheduling.class);
     private static final Comparator<Appointment> APPOINTMENT_COMPARATOR = Comparator.comparing(Appointment::dateTime);
 
     private final AppointmentRepository appointmentRepository;
@@ -103,7 +103,7 @@ public class AppointmentScheduling {
 
         return allPossibleTimes.stream()
                 .filter(time -> !bookedTimes.contains(time))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<LocalTime> availableDatesOnDay(UUID shopId, DayOfWeek dayOfWeek) throws ShopNotFoundException {
