@@ -27,7 +27,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class AppointmentSchedulingTest {
+class AppointmentSchedulingTest {
 
     @Mock
     private ShopRepository shopRepository;
@@ -44,7 +44,7 @@ public class AppointmentSchedulingTest {
     private AppointmentFilter filter;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         shopId = UUID.randomUUID();
 
@@ -72,7 +72,7 @@ public class AppointmentSchedulingTest {
     }
 
     @Test
-    public void testSearchAppointments() {
+    void testSearchAppointments() {
         when(shopRepository.findById(shopId)).thenReturn(Optional.of(shop));
         when(appointmentRepository.findForShopId(shopId)).thenReturn(List.of(appointment));
 
@@ -83,7 +83,7 @@ public class AppointmentSchedulingTest {
     }
 
     @Test
-    public void testSearchAppointments_ShopNotFound() {
+    void testSearchAppointments_ShopNotFound() {
         when(shopRepository.findById(shopId)).thenReturn(Optional.empty());
 
         Collection<Appointment> results = appointmentScheduling.searchAppointments(shopId, Set.of(filter));
@@ -92,7 +92,7 @@ public class AppointmentSchedulingTest {
     }
 
     @Test
-    public void whenNextAppointmentExists() {
+    void whenNextAppointmentExists() {
         when(shopRepository.findById(shopId)).thenReturn(Optional.of(shop));
         when(appointmentRepository.findForShopId(shopId)).thenReturn(List.of(appointment));
         when(appointmentScheduling.searchAppointments(shopId, Set.of(AppointmentFilterFuture.INSTANCE)))
@@ -105,7 +105,7 @@ public class AppointmentSchedulingTest {
     }
 
     @Test
-    public void whenNextAppointmentDoesntExist() {
+    void whenNextAppointmentDoesntExist() {
         when(shopRepository.findById(shopId)).thenReturn(Optional.of(shop));
         when(appointmentRepository.findForShopId(shopId)).thenReturn(List.of());
 
