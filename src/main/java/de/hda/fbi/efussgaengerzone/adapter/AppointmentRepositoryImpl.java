@@ -6,13 +6,11 @@ import de.hda.fbi.efussgaengerzone.domain.usecase.AppointmentNotFoundException;
 import org.springframework.stereotype.Repository;
 
 
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 

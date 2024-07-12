@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -27,16 +24,6 @@ public class Reporting {
 
     public Reporting(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
-    }
-
-    private static boolean isC(Set<String> c, String cn) {
-        boolean f = false;
-        for (String s : c) {
-            if (s.equals(cn)) {
-                f = true;
-            }
-        }
-        return f;
     }
 
 
