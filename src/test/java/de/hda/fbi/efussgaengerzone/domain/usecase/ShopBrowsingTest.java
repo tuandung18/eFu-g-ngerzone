@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Null;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
@@ -163,6 +162,20 @@ class ShopBrowsingTest {
             var shops = shopBrowsing.findShopsByQuery(Set.of("coffee"), Set.of(Tag.of("yolo")));
 
             assertThat(shops).containsOnly(wineAndCoffee, coffeeAndGuns);
+        }
+
+        @Test
+        void whenNoWordsOrTagsProvidedThenThrowException() {
+            // given
+            Set<String> words = Set.of();
+            Set<Tag> tags = Set.of();
+
+            // when & then
+            assertThatThrownBy(() -> {
+                shopBrowsing.findShopsByQuery(words, tags);
+            })
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("no words or tags provided for shop search");
         }
     }
 
