@@ -26,6 +26,9 @@ public class Reporting {
         this.appointmentRepository = appointmentRepository;
     }
 
+    private static boolean hasSubstring(Set<String> container, String sub) {
+        return container.contains(sub);
+    }
 
     public ShopReport getShopReport(UUID id) {
         LOG.info("Generating shop report for shopId {}", id);
